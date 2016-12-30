@@ -1,4 +1,8 @@
-# webvr-boilerplate
+webvr-boilerplate
+========
+
+[![License][license-badge]][license-badge-url]
+
 
 > Boilerplate for your ThreeJS WebVR experiences powered by grunt and ES6.
 
