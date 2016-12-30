@@ -7,7 +7,7 @@ This boilerplate is based on [Three.js](https://github.com/mrdoob/three.js/) and
 ## Version
 Current version="0.0.1"
 
-## Requirements For Frontend Development
+## Requirements for development
 
 * NodeJS (>= 5.9.0)
 * Grunt
