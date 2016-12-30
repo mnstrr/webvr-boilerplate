@@ -1,26 +1,21 @@
 export default (function () {
 	'use strict';
 
+	// reference to main App object
+	let App = {};
 
-	//Helpers
-	let extend = function extend(obj) {
-		[].slice.call(arguments, 1).forEach((item) => {
-			for (let key in item) obj[key] = item[key];
-		});
-		return obj;
-	};
-
-
-	// Save a reference to the global object
-	let root = window;
-
-	// @borrow objects
-	let App = root.App = extend(window.App || {});
-
-	// Versioning
+	// Version
 	App.version = "0.0.1";
 
+	if (document.location.search.indexOf('devmode') > -1) {
+		App.devmode = true;
+	}
+
+	// hide all warnings and logs if not in devmode
+	if (!App.devmode) {
+		console.log = console.warn = function () {
+		};
+	}
 
 	return App;
-
 }).call(this);
