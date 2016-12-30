@@ -1,0 +1,43 @@
+{
+  "name": "webvr-boilerplate",
+  "version": "0.0.1",
+  "description": "Boilerplate for your WebVR experience.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mnstrr/webvr-boilerplate.git"
+  },
+  "keywords": [
+    "WebVR",
+    "Three.js"
+  ],
+  "author": "Felix Winkelmann",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mnstrr/webvr-boilerplate/issues"
+  },
+  "homepage": "https://github.com/mnstrr/webvr-boilerplate#readme",
+  "devDependencies": {
+    "autoprefixer": "^6.6.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babelify": "^7.3.0",
+    "grunt": "^1.0.1",
+    "grunt-browserify": "^5.0.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-htmlmin": "^2.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-open": "^0.2.3",
+    "grunt-postcss": "^0.8.0",
+    "grunt-sass": "^2.0.0",
+    "grunt-sync": "^0.6.2",
+    "jit-grunt": "^0.10.0",
+    "load-grunt-configs": "^1.0.0",
+    "time-grunt": "^1.4.0"
+  }
+}
