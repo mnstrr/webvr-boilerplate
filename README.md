@@ -1,4 +1,7 @@
-# webvr-boilerplate
+webvr-boilerplate
+========
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > Boilerplate for your ThreeJS WebVR experiences powered by grunt and ES6.
 
