@@ -1,9 +1,9 @@
 import App from './app';
-import THREELib from "three-js";
+
+
 
 console.log('App initialized with version: ', App.version);
 
-let THREE = THREELib(); // return THREE JS
 let scene, camera, renderer;
 let geometry, material, mesh;
 
@@ -11,6 +11,7 @@ init();
 animate();
 
 function init() {
+
 
 	scene = new THREE.Scene();
 
@@ -27,6 +28,8 @@ function init() {
 	renderer.setSize(window.innerWidth, window.innerHeight);
 
 	document.body.appendChild(renderer.domElement);
+
+
 
 }
 

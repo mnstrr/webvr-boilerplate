@@ -3,6 +3,7 @@
  */
 var helperPath = 'helpers';
 var srcPath = 'resources';
+var npPath = 'node_modules';
 
 var config = module.exports;
 
@@ -17,6 +18,8 @@ config.options = {
 		helpers: helperPath,
 		// resources folder with working files
 		src: srcPath,
+		// path to installed node packages
+		packages: npPath,
 		// dev/working folder
 		dev: '_output',
 		// dist folder with minified and optimized files

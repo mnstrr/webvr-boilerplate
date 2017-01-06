@@ -2,9 +2,10 @@
   "name": "webvr-boilerplate",
   "version": "0.0.1",
   "description": "Boilerplate for your WebVR experience.",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "bower i"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
     "grunt-sync": "^0.6.2",
     "jit-grunt": "^0.10.0",
     "load-grunt-configs": "^1.0.0",
+    "three": "^0.83.0",
     "time-grunt": "^1.4.0"
   }
 }

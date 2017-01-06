@@ -21,5 +21,18 @@ module.exports = {
 				dest: '<%= paths.dev %>'
 			}
 		]
+	},
+	libs: {
+		files: [
+			{
+				cwd: '<%= paths.packages %>',
+				src: [
+					'three/build/three.min.js',
+					'three/examples/js/effects/VREffect.js'
+				],
+				dest: '<%= paths.dev %>/js/'
+			}
+
+		]
 	}
 };

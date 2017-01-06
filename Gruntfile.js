@@ -21,8 +21,7 @@ module.exports = function (grunt) {
 	 */
 	grunt.registerTask('server', [
 		'browserify:dev',
-		'sync:html',
-		'sync:assets',
+		'sync',
 		'sass:dev',
 		'postcss:dev',
 		'connect:livereload',
@@ -33,8 +32,7 @@ module.exports = function (grunt) {
 		'clean:dev',
 		'browserify:dist',
 		'uglify',
-		'sync:html',
-		'sync:assets',
+		'sync',
 		'htmlmin',
 		'sass:dev',
 		'postcss:dist',
