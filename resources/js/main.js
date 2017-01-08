@@ -1,45 +1,101 @@
 import App from './app';
+import Helpers from './helpers/helpers';
+import ThreeInit from './modules/ThreeInit';
+import VRInit from './modules/VRInit';
+import WebGLContent from './modules/WebGLContent';
+'use strict';
 
+let renderer,
+	effect,
+	controls,
+	scene,
+	camera,
+	vrDisplay,
+	webGlContent;
 
+/**
+ * The Core class will handle the ThreeJS- and VR-Initialisation and save references to its created variables like renderer, scene, camera, ...
+ * Further it handles the render-loop and calls the animateScene function in WebGLContent.js for you.
+ *
+ */
+class Core {
 
-console.log('App initialized with version: ', App.version);
+	initialize(context) {
 
-let scene, camera, renderer;
-let geometry, material, mesh;
+		console.log('App initialized with version ' + App.version);
 
-init();
-animate();
+		let threeInit = new ThreeInit({
+			antialias: true,
+			container: context.getElementById('canvasContainer')
+		});
 
-function init() {
+		renderer = threeInit.renderer;
+		scene = threeInit.scene;
+		camera = threeInit.camera;
 
+		let vrInit = new VRInit({
+			renderer: renderer,
+			camera: camera,
+		});
 
-	scene = new THREE.Scene();
+		vrDisplay = vrInit.vrDisplay;
+		controls = vrInit.controls;
+		effect = vrInit.effect;
 
-	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-	camera.position.z = 1000;
+		webGlContent = new WebGLContent({
+			scene: scene,
+			camera: camera
+		});
 
-	geometry = new THREE.BoxGeometry(200, 200, 200);
-	material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe: true});
+		// listen to resize event and use reziseCanvas helper
+		window.addEventListener('resize', function () {
+			Helpers.resizeCanvas({
+				camera: camera,
+				renderer: renderer
+			});
+		}, false);
 
-	mesh = new THREE.Mesh(geometry, material);
-	scene.add(mesh);
+		// run animation loop
+		this.renderWebGLApp();
+	}
 
-	renderer = new THREE.WebGLRenderer();
-	renderer.setSize(window.innerWidth, window.innerHeight);
+	/**
+	 * Runs the render loop by using RAF: render function the render function either of the effect or the renderer and
+	 * calling the animateScene function.
+	 */
+	renderWebGLApp() {
 
-	document.body.appendChild(renderer.domElement);
+		// check for vrDisplay and use its RAF if available
+		if (vrDisplay) {
+			vrDisplay.requestAnimationFrame(this.renderWebGLApp.bind(this));
+		}
+		else {
+			requestAnimationFrame(this.renderWebGLApp.bind(this));
+		}
 
+		// call the animation function of WebGlContent.js
+		webGlContent.animateScene();
 
+		// render the scene, either VReffect or renderer
+		if (effect) {
+			effect.render(scene, camera);
+		}
+		else {
+			renderer.render(scene, camera);
+		}
 
+		// update the controls
+		controls.update();
+	}
 }
 
-function animate() {
+// init the app after DOMContentLoaded event has fired
+document.addEventListener("DOMContentLoaded", function () {
+	console.log('DOMContentLoaded');
+	let core = new Core();
+	core.initialize(document);
+});
 
-	requestAnimationFrame(animate);
 
-	mesh.rotation.x += 0.01;
-	mesh.rotation.y += 0.02;
 
-	renderer.render(scene, camera);
 
-}
