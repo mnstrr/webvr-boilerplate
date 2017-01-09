@@ -55,7 +55,7 @@ grunt build
 
 The boilerplate has some cool built-in features which can be configured in the app.js file before running the app:
 
-```
+```javascript
 App.config = {
 
     // To monitor the hardware and data usage of your app, you can simply show a stats monitor.
