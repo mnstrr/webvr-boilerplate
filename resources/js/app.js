@@ -10,7 +10,7 @@ export default (function () {
 	// Configuration
 	App.config = {
 
-		SHOW_STATS: 0, // show performance stats (0: fps, 1: ms, 2: mb, 3+: custom, default: false)
+		SHOW_STATS: 0, // show performance stats (0: fps, 1: ms, 2: mb,  default: false)
 		ANTIALIAS: true, // use antialias for rendering (default: false)
 		FULLSCREEN_OPTION: undefined, // provide queryselector to show fullscreen button. click is handled from internal js (default: undefined)
 		WARN_MESSAGE: undefined, // provide dom queryselector to show warnmessage for unsupported devices (default: undefined)
@@ -20,17 +20,16 @@ export default (function () {
 	};
 
 
+
+
 	/**
 	 *
 	 * POLYFILLS
 	 *
 	 */
 
-
-	/**
-	 * Provides requestAnimationFrame in a cross browser way.
-	 * http://paulirish.com/2011/requestanimationframe-for-smart-animating/
-	 */
+	// Provides requestAnimationFrame in a cross browser way.
+	// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
 	if (!window.requestAnimationFrame) {
 		window.requestAnimationFrame = (function () {
 			return window.webkitRequestAnimationFrame ||
