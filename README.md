@@ -110,4 +110,4 @@ Some variables can globally be accessed by using the App module:
 
 ### Devmode
 
-Console logs and warnung are supressed by default. Append ``?devmode`` to browser adressfiled to enable devmode.
+Console logs and warnings are suppressed by default. Append ``?devmode`` to the browser adressfiled to enable devmode.
