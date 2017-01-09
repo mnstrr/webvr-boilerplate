@@ -26,38 +26,36 @@ class VRInit {
 	 *
 	 */
 	initialize() {
-
 		if (navigator.getVRDisplays) {
 			navigator.getVRDisplays().then(function (displays) {
 				if (displays.length > 0) {
 					vrDisplay = displays[0];
-					this.webVRInitialized('native');
 				} else {
-					console.log("WebVR supported, but no VRDisplays found.");
+					console.warn("WebVR supported, but no VRDisplays found.");
 				}
 			});
-		} else if (navigator.getVRDevices) {
-			console.warn("Your device does not support the latest version of WebVR");
+			App.device = Device.NATIVE;
 		} else if (App.isMobile) {
-			this.webVRInitialized('mobile');
+			App.device = Device.MOBILE;
 		} else {
-			console.warn("Your device does not support WebVR.");
-			this.webVRInitialized();
+			console.warn("Your device does not support WebVR. See <a href='http://webvr.info'>webvr.info</a> for assistance.");
+			App.device = Device.DESKTOP;
 		}
+
+		this.webVRInitialized();
 	}
 
 	/**
 	 * Delegate setup methods depending on device type and resize after setup
 	 *
-	 * @param vrDevice
 	 */
-	webVRInitialized(vrDevice) {
+	webVRInitialized() {
 
-		switch (vrDevice) {
-			case 'native':
+		switch (App.device) {
+			case Device.NATIVE:
 				this.setupNativeVR();
 				break;
-			case 'mobile':
+			case Device.MOBILE:
 				this.setupMobileVR();
 				break;
 			default:
@@ -76,7 +74,7 @@ class VRInit {
 	 *
 	 */
 	setupNativeVR() {
-		App.device = Device.NATIVE;
+
 
 		// create the VR-effect for oculus/vive
 		effect = new THREE.VREffect(this.options.renderer, function (err) {
@@ -106,9 +104,15 @@ class VRInit {
 	 *
 	 */
 	setupMobileVR() {
-		App.device = Device.MOBILE;
-
+		effect = new THREE.StereoEffect(this.options.renderer);
+		effect.setSize(window.innerWidth, window.innerHeight);
+		// StereoEffect's default separation is in cm, we're in M
+		// Actual cardboard eye separation is 2.5in
+		// Finally, separation is per-eye so divide by 2
+		effect.separation = 2.5 * 0.0254 / 2;
 		//TODO: start cardboard effect and controls
+
+		controls = new THREE.DeviceOrientationControls(this.options.camera);
 	}
 
 	/**
@@ -116,13 +120,6 @@ class VRInit {
 	 *
 	 */
 	setupDesktopFallback() {
-		App.device = Device.DESKTOP;
-
-		if(App.device === Device.DESKTOP) {
-			console.log(App.device);
-		}
-
-
 		controls = new THREE.OrbitControls(this.options.camera, this.options.renderer.domElement);
 	}
 

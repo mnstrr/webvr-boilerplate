@@ -3,6 +3,7 @@ import Helpers from './helpers/helpers';
 import ThreeInit from './modules/ThreeInit';
 import VRInit from './modules/VRInit';
 import WebGLContent from './modules/WebGLContent';
+import Stats from 'stats.js';
 'use strict';
 
 let renderer,
@@ -13,6 +14,8 @@ let renderer,
 	vrDisplay,
 	webGlContent;
 
+const stats = new Stats();
+
 /**
  * The Core class will handle the ThreeJS- and VR-Initialisation and save references to its created variables like renderer, scene, camera, ...
  * Further it handles the render-loop and calls the animateScene function in WebGLContent.js for you.
@@ -21,11 +24,16 @@ let renderer,
 class Core {
 
 	initialize(context) {
-
 		console.log('App initialized with version ' + App.version);
 
+		// show stats for performance monitoring
+		if (typeof App.config.SHOW_STATS != 'undefined') {
+			stats.showPanel(App.config.SHOW_STATS); // 0: fps, 1: ms, 2: mb, 3+: custom
+			document.body.appendChild(stats.dom);
+		}
+
+		// init threeJS
 		let threeInit = new ThreeInit({
-			antialias: true,
 			container: context.getElementById('canvasContainer')
 		});
 
@@ -33,6 +41,7 @@ class Core {
 		scene = threeInit.scene;
 		camera = threeInit.camera;
 
+		// init VR effects and controls
 		let vrInit = new VRInit({
 			renderer: renderer,
 			camera: camera,
@@ -42,6 +51,7 @@ class Core {
 		controls = vrInit.controls;
 		effect = vrInit.effect;
 
+		// init custom webgl content
 		webGlContent = new WebGLContent({
 			scene: scene,
 			camera: camera
@@ -65,18 +75,13 @@ class Core {
 	 */
 	renderWebGLApp() {
 
-		// check for vrDisplay and use its RAF if available
-		if (vrDisplay) {
-			vrDisplay.requestAnimationFrame(this.renderWebGLApp.bind(this));
-		}
-		else {
-			requestAnimationFrame(this.renderWebGLApp.bind(this));
-		}
+		// stats call before rendering
+		stats.begin();
 
 		// call the animation function of WebGlContent.js
 		webGlContent.animateScene();
 
-		// render the scene, either VReffect or renderer
+		// render the scene, either with VReffect or renderer
 		if (effect) {
 			effect.render(scene, camera);
 		}
@@ -86,6 +91,17 @@ class Core {
 
 		// update the controls
 		controls.update();
+
+		// stats call after rendering
+		stats.end();
+
+		// check for vrDisplay and use its RAF if available
+		if (vrDisplay) {
+			vrDisplay.requestAnimationFrame(this.renderWebGLApp.bind(this));
+		}
+		else {
+			requestAnimationFrame(this.renderWebGLApp.bind(this));
+		}
 	}
 }
 

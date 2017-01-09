@@ -1,3 +1,4 @@
+import App from '../app';
 'use strict';
 
 let renderer,
@@ -21,7 +22,7 @@ class ThreeInit {
 	 */
 	initialize() {
 		//create new renderer used throughout the app
-		renderer = new THREE.WebGLRenderer({antialias: this.options.antialias});
+		renderer = new THREE.WebGLRenderer({antialias: App.config.ANTIALIAS});
 
 		// append the canvas either to the provided container, or document body
 		if (this.options.container) {
