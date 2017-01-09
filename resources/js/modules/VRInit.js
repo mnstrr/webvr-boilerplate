@@ -1,5 +1,6 @@
 import App from '../app';
 import Helpers from '../helpers/helpers';
+import Device from '../helpers/enums';
 'use strict';
 
 let vrDisplay,
@@ -75,6 +76,8 @@ class VRInit {
 	 *
 	 */
 	setupNativeVR() {
+		App.device = Device.NATIVE;
+
 		// create the VR-effect for oculus/vive
 		effect = new THREE.VREffect(this.options.renderer, function (err) {
 			if (err) {
@@ -103,6 +106,8 @@ class VRInit {
 	 *
 	 */
 	setupMobileVR() {
+		App.device = Device.MOBILE;
+
 		//TODO: start cardboard effect and controls
 	}
 
@@ -111,6 +116,13 @@ class VRInit {
 	 *
 	 */
 	setupDesktopFallback() {
+		App.device = Device.DESKTOP;
+
+		if(App.device === Device.DESKTOP) {
+			console.log(App.device);
+		}
+
+
 		controls = new THREE.OrbitControls(this.options.camera, this.options.renderer.domElement);
 	}
 
