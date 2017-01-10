@@ -22,3 +22,13 @@ Global styles
 		display: block;
 	}
 }
+
+.fullscreen-btn {
+	position: absolute;
+	top: 40px;
+	right: 10px;
+
+	&.is-active {
+		display: block;
+	}
+}

@@ -75,6 +75,8 @@ class Core {
 	 */
 	renderWebGLApp() {
 
+		// TODO: keep track of API paramters which might be useful
+
 		// stats call before rendering
 		stats.begin();
 

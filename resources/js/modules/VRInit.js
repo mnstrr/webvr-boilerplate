@@ -118,10 +118,7 @@ class VRInit {
 	setupDesktopFallback() {
 		// show warn message if a queryselector is provided
 		if(typeof App.config.WARN_MESSAGE == 'string') {
-			let container = document.querySelector(App.config.WARN_MESSAGE);
-			if(container) {
-				container.classList.add("is-active");
-			}
+			Helpers.addClass(App.config.WARN_MESSAGE, 'is-active');
 		}
 
 		// create stereo effect as fake-vr
