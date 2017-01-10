@@ -50,7 +50,6 @@ class VRInit {
 	 *
 	 */
 	webVRInitialized() {
-
 		switch (App.device) {
 			case Device.NATIVE:
 				this.setupNativeVR();
@@ -74,8 +73,6 @@ class VRInit {
 	 *
 	 */
 	setupNativeVR() {
-
-
 		// create the VR-effect for oculus/vive
 		effect = new THREE.VREffect(this.options.renderer, function (err) {
 			if (err) {
@@ -106,20 +103,33 @@ class VRInit {
 	setupMobileVR() {
 		effect = new THREE.StereoEffect(this.options.renderer);
 		effect.setSize(window.innerWidth, window.innerHeight);
-		// StereoEffect's default separation is in cm, we're in M
-		// Actual cardboard eye separation is 2.5in
-		// Finally, separation is per-eye so divide by 2
-		effect.separation = 2.5 * 0.0254 / 2;
-		//TODO: start cardboard effect and controls
 
+		// Cardboards eye seperation is 2.5 inch. Divide by 2 for per-eye view.
+		effect.separation = 2.5 * 0.0254 / 2;
+
+		// create device orientation controls for use with cardboard
 		controls = new THREE.DeviceOrientationControls(this.options.camera);
 	}
 
 	/**
-	 * Orbitcontrols as desktop fallback. No effect needed
+	 * Orbitcontrols as desktop fallback.
 	 *
 	 */
 	setupDesktopFallback() {
+		// show warn message if a queryselector is provided
+		if(typeof App.config.WARN_MESSAGE == 'string') {
+			let container = document.querySelector(App.config.WARN_MESSAGE);
+			if(container) {
+				container.classList.add("is-active");
+			}
+		}
+
+		// create stereo effect as fake-vr
+		if(App.config.FAKE_VR_EFFECT) {
+			this.setupMobileVR();
+		}
+
+		// create orbitcontrols
 		controls = new THREE.OrbitControls(this.options.camera, this.options.renderer.domElement);
 	}
 

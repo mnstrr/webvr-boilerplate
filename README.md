@@ -7,7 +7,7 @@ webvr-boilerplate
 
 This boilerplate is based on [Three.js](https://github.com/mrdoob/three.js/) and uses the  [WebVR API](https://developer.mozilla.org/de/docs/Web/API/WebVR_API) to provide you with all the tools needed to create immersive VR-experiences for the Web. It will handle the Api availability check and device detection for you and initializes the corresponding effects and controls for ThreeJS automatically.
 
-The setup uses Grunt as Taskrunner to build your Project and watch for changes and is written in ECMA Script 6. For older browser support the babelify task will create ECMASCRIPT 5 code for you. 
+The setup uses Grunt as Taskrunner to build your Project and watch for changes and is written in ECMAScript 2015. For older browser support the babelify task will create ECMAScript 5 code for you. 
 
 ## Version
 Current version="0.0.1"
@@ -106,7 +106,7 @@ Your WebGL Code will be maintained in ``WebGLContent.js``:
 Some variables can globally be accessed by using the App module:
 
 - ``App.version`` {string} holds the current app version 
-- ``App.config`` {object} holds the App configuration
+- ``App.config`` {object} holds the App [configuration](#configuration)
 - ``App.isMobile`` {boolean} used to identify if a mobile device is used
 - ``App.device`` {string} holds the current devicetype
 

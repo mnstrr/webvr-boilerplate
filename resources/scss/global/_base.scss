@@ -9,3 +9,16 @@ Global styles
 * {
 	box-sizing: border-box;
 }
+
+.warning {
+	display: none;
+	position: absolute;
+	top: 40px;
+	left: 50%;
+	transform: translateX(-50%);
+	background: white;
+
+	&.is-active {
+		display: block;
+	}
+}
