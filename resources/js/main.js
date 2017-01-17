@@ -29,11 +29,9 @@ class Core {
 		console.log('App initialized with version ' + App.version);
 		App.Mode = Mode.NORMAL;
 
-		document.onwebkitfullscreenchange =  function () {
-			//console.log("CHANAGE", App.Mode);
-
+		if (document['onwebkitfullscreenchange']) {
+			console.log("BLABLILI")
 		}
-
 		// show stats for performance monitoring
 		if (typeof App.config.SHOW_STATS != 'undefined') {
 			stats.showPanel(App.config.SHOW_STATS); // 0: fps, 1: ms, 2: mb, 3+: custom
@@ -105,16 +103,8 @@ class Core {
 
 		//handle fullscreen action
 		function handleFullscreen() {
-			if (App.Mode === Mode.NORMAL) {
-				Helpers.toggleFullScreen(document.body);
-				App.Mode = Mode.FULLSCREEN;
 
-			} else {
-				Helpers.toggleFullScreen(document.body);
-				App.Mode = Mode.NORMAL;
-			}
-
-			console.log(window.fullScreen);
+			Helpers.toggleFullScreen(document.body);
 
 			Helpers.resizeCanvas({
 				camera: camera,
@@ -143,11 +133,9 @@ class Core {
 						// Cardboards eye seperation is 2.5 inch. Divide by 2 for per-eye view.
 						effect.separation = 2.5 * 0.0254 / 2;
 						Helpers.toggleFullScreen(document.body);
-						App.Mode = Mode.VRMODE;
 					} else {
 						Helpers.toggleFullScreen(document.body);
 						effect = undefined;
-						App.Mode = Mode.NORMAL;
 					}
 					break;
 				default:
@@ -175,6 +163,15 @@ class Core {
 			}
 		});
 
+		// listen to fullscreenchange and change App mode accordingly
+		//TODO: Polyfill for fullscreenchange
+		document.onwebkitfullscreenchange = function () {
+			App.Mode = (App.Mode === Mode.NORMAL) ? Mode.FULLSCREEN : Mode.NORMAL;
+
+			if (App.Mode === Mode.NORMAL && App.device === Device.MOBILE) {
+				effect = undefined;
+			}
+		}
 	}
 
 	/**
