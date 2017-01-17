@@ -14,8 +14,8 @@ export default (function () {
 		ANTIALIAS: true, // use antialias for rendering (default: false)
 		FULLSCREEN_OPTION: '#vr-fullscreen', // provide queryselector to show fullscreen button. click is handled from internal js (default: undefined)
 		WARN_MESSAGE: '#vr-warning', // provide dom queryselector to show warnmessage for unsupported devices (default: undefined)
-		FAKE_VR_CONTROLS: false, // fakes vr-controls as click&drag to move (default: false)
 		FAKE_VR_EFFECT: true, // fakes vr-effect as three stereo-effect (default: false)
+		SHOW_CROSSHAIR: true
 
 	};
 

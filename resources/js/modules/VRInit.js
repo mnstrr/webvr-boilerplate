@@ -61,6 +61,10 @@ class VRInit {
 				this.setupDesktopFallback();
 		}
 
+		if(App.config.SHOW_CROSSHAIR) {
+			this.showChrosshair();
+		}
+
 		// resize after new effect init
 		Helpers.resizeCanvas({
 			camera: this.options.camera,
@@ -128,6 +132,22 @@ class VRInit {
 
 		// create orbitcontrols
 		controls = new THREE.OrbitControls(this.options.camera, this.options.renderer.domElement);
+	}
+
+	/**
+	 * Adds a simple crosshair to the scene
+	 */
+	showChrosshair() {
+		let crosshair = new THREE.Mesh(
+			new THREE.RingGeometry( 0.02, 0.04, 32 ),
+			new THREE.MeshBasicMaterial( {
+				color: 0xffffff,
+				opacity: 0.5,
+				transparent: true
+			} )
+		);
+		crosshair.position.z = - 2;
+		this.options.camera.add( crosshair );
 	}
 
 

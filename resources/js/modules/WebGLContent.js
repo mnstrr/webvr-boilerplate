@@ -1,8 +1,7 @@
 'use strict';
 
-let geometry,
-	material,
-	mesh;
+let crosshair,
+	room;
 
 /**
  * This class is your starting point for WebGL development.
@@ -27,14 +26,13 @@ class WebGLContent {
 	 * Use This to set up your scene.
 	 */
 	createScene() {
-		geometry = new THREE.BoxGeometry(200, 200, 200);
-		material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe: true});
 
-		mesh = new THREE.Mesh(geometry, material);
 
-		this.options.scene.add(mesh);
-
-		this.options.camera.position.z = 1000;
+		room = new THREE.Mesh(
+			new THREE.BoxGeometry( 6, 6, 6, 8, 8, 8 ),
+			new THREE.MeshBasicMaterial( { color: 0x404040, wireframe: true } )
+		);
+		this.options.scene.add( room );
 	}
 
 	/**
@@ -44,8 +42,8 @@ class WebGLContent {
 	 * @param time
 	 */
 	animateScene (time) {
-		mesh.rotation.x += 0.01;
-		mesh.rotation.y += 0.02;
+		//mesh.rotation.x += 0.01;
+		//mesh.rotation.y += 0.02;
 	}
 
 }

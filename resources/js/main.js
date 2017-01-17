@@ -45,6 +45,7 @@ class Core {
 		let vrInit = new VRInit({
 			renderer: renderer,
 			camera: camera,
+			scene: scene
 		});
 
 		vrDisplay = vrInit.vrDisplay;
@@ -83,6 +84,9 @@ class Core {
 		// call the animation function of WebGlContent.js
 		webGlContent.animateScene();
 
+		// update the controls
+		controls.update();
+
 		// render the scene, either with VReffect or renderer
 		if (effect) {
 			effect.render(scene, camera);
@@ -90,9 +94,6 @@ class Core {
 		else {
 			renderer.render(scene, camera);
 		}
-
-		// update the controls
-		controls.update();
 
 		// stats call after rendering
 		stats.end();
