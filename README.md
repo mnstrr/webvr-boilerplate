@@ -75,6 +75,11 @@ App.config = {
     // The click of the element will be handled from the app and enable Fullscreen
     // default: undefined
     FULLSCREEN_OPTION: '#fullscreen-button', 
+    
+    // To enable the app to activate VR-Mode on mobile and with connected VR-Devices, you can provide a queryselector to your button.
+    // The click of the element will be handled from the app and enable VR-mode
+    // default: undefined
+    VRMODE_OPTION: '#vrmode-button',
 
     // To show a warn message if the WebVR-Api is not supported, you can provide a queryselector to your message.
     // The class 'is-visible' will be added when the Api is not supported.
@@ -112,4 +117,4 @@ Some variables can globally be accessed by using the App module:
 
 ### Devmode
 
-Console logs and warnings are suppressed by default. Append ``?devmode`` to the browser adressfiled to enable devmode.
+Console logs are suppressed by default. Append ``?devmode`` to the browser adressfiled to enable show logs.

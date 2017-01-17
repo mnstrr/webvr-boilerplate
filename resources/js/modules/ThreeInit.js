@@ -42,6 +42,27 @@ class ThreeInit {
 
 		// default camera position. will be overwritten/ignored if there are valid VRDevices. Use this as desktop fallback
 		camera.position.z = .001;
+
+		//show crosshair if selected
+		if (App.config.SHOW_CROSSHAIR) {
+			this.showChrosshair();
+		}
+	}
+
+	/**
+	 * Adds a simple crosshair to the scene
+	 */
+	showChrosshair() {
+		let crosshair = new THREE.Mesh(
+			new THREE.RingGeometry(0.001, 0.002, 32),
+			new THREE.MeshBasicMaterial({
+				color: 0xffffff,
+				opacity: 0.5,
+				transparent: true
+			})
+		);
+		crosshair.position.z = -0.15;
+		camera.add(crosshair);
 	}
 
 

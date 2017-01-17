@@ -52,7 +52,7 @@ export default (function () {
 
 	// hide all warnings and logs if not in devmode
 	if (!App.devmode) {
-		console.log = console.warn = function () {
+		console.log = function () {
 		};
 	}
 

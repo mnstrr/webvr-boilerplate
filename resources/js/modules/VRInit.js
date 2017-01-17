@@ -61,10 +61,6 @@ class VRInit {
 				this.setupDesktopFallback();
 		}
 
-		if(App.config.SHOW_CROSSHAIR) {
-			this.showChrosshair();
-		}
-
 		// resize after new effect init
 		Helpers.resizeCanvas({
 			camera: this.options.camera,
@@ -121,33 +117,17 @@ class VRInit {
 	 */
 	setupDesktopFallback() {
 		// show warn message if a queryselector is provided
-		if(typeof App.config.WARN_MESSAGE == 'string') {
+		if (typeof App.config.WARN_MESSAGE == 'string') {
 			Helpers.addClass(App.config.WARN_MESSAGE, 'is-active');
 		}
 
 		// create stereo effect as fake-vr
-		if(App.config.FAKE_VR_EFFECT) {
+		if (App.config.FAKE_VR_EFFECT) {
 			this.setupMobileVR();
 		}
 
 		// create orbitcontrols
 		controls = new THREE.OrbitControls(this.options.camera, this.options.renderer.domElement);
-	}
-
-	/**
-	 * Adds a simple crosshair to the scene
-	 */
-	showChrosshair() {
-		let crosshair = new THREE.Mesh(
-			new THREE.RingGeometry( 0.001, 0.002, 32 ),
-			new THREE.MeshBasicMaterial( {
-				color: 0xffffff,
-				opacity: 0.5,
-				transparent: true
-			} )
-		);
-		crosshair.position.z = - 0.15;
-		this.options.camera.add( crosshair );
 	}
 
 
