@@ -79,15 +79,15 @@ App.config = {
     // To show a warn message if the WebVR-Api is not supported, you can provide a queryselector to your message.
     // The class 'is-visible' will be added when the Api is not supported.
     // default: undefined
-    WARN_MESSAGE: '#warn-message', 
-    
-    // To 'fake' the VR-Controls as drag&drop with mouse you can enable this option.
-    // default: false
-    FAKE_VR_CONTROLS: true, 
+    WARN_MESSAGE: '#warn-message',
     
     // To 'fake' the VR-Effect as Three Stereo-Effect you can enable this option.
     // default: false
     FAKE_VR_EFFECT: true, 
+    
+    //shows a simple crosshair in front of the camera
+    //default: false
+    SHOW_CROSSHAIR: true
 
 };
 ```
