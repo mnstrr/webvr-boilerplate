@@ -7,35 +7,45 @@ Global styles
 --------------------------------------------------- */
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-	overflow: hidden;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 12px;
+  overflow: hidden;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
 }
 
 .warning {
-	display: none;
-	position: absolute;
-	top: 40px;
-	left: 50%;
-	transform: translateX(-50%);
-	background: white;
-	padding: 10px 20px;
+  display: none;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 10px 20px;
 
-	&.is-active {
-		display: block;
-	}
+  &.is-active {
+	display: block;
+  }
 }
 
-.fullscreen-btn {
-	position: absolute;
+.button {
+  position: absolute;
+  border-radius: 0;
+  border: none;
+  background: white;
+
+  &.is-active {
+	display: block;
+  }
+
+  &.fullscreen {
 	top: 40px;
 	right: 10px;
-
-	&.is-active {
-		display: block;
-	}
+  }
+  &.vrmode {
+    top: 80px;
+    right: 10px;
+  }
 }

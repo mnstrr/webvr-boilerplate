@@ -1,9 +1,10 @@
-import App from './app';
-import Helpers from './helpers/helpers';
-import ThreeInit from './modules/ThreeInit';
-import VRInit from './modules/VRInit';
-import WebGLContent from './modules/WebGLContent';
-import Stats from 'stats.js';
+import App from "./app";
+import Helpers from "./helpers/helpers";
+import ThreeInit from "./modules/ThreeInit";
+import VRInit from "./modules/VRInit";
+import WebGLContent from "./modules/WebGLContent";
+import Stats from "stats.js";
+import Device from "./helpers/enums";
 'use strict';
 
 let renderer,
@@ -67,8 +68,70 @@ class Core {
 			});
 		}, false);
 
+		this.handleButtons();
+
 		// run animation loop
 		this.renderWebGLApp();
+	}
+
+	/**
+	 * Method to set up event listeners to buttons, if provided in config
+	 */
+	handleButtons() {
+		let fullScreenBtn,
+			vrModeBtn;
+
+		// activate fullscreen and vrmode button and store reference of dom element
+		// add eventlisteners if dom element is found
+		if (typeof App.config.FULLSCREEN_OPTION == 'string') {
+			fullScreenBtn = Helpers.addClass(App.config.FULLSCREEN_OPTION, 'is-active');
+			if (fullScreenBtn) {
+				fullScreenBtn.addEventListener('click', handleFullscreen.bind(this));
+			}
+		}
+		if (typeof App.config.VRMODE_OPTION == 'string') {
+			vrModeBtn = Helpers.addClass(App.config.VRMODE_OPTION, 'is-active');
+			if (vrModeBtn) {
+				vrModeBtn.addEventListener('click', handleVrMode.bind(this));
+			}
+		}
+
+		//handle fullscreen action
+		function handleFullscreen() {
+			Helpers.toggleFullScreen(document.body);
+
+			Helpers.resizeCanvas({
+				camera: camera,
+				renderer: renderer,
+				effect: effect
+			});
+		}
+
+		//handle vrmode action
+		function handleVrMode() {
+			//TODO: handle disable
+
+			switch(App.device) {
+				case Device.NATIVE:
+					effect.setFullScreen(true);
+					break;
+				case Device.MOBILE:
+					effect = new THREE.StereoEffect(renderer);
+					effect.setSize(window.innerWidth, window.innerHeight);
+					// Cardboards eye seperation is 2.5 inch. Divide by 2 for per-eye view.
+					effect.separation = 2.5 * 0.0254 / 2;
+					handleFullscreen();
+					break;
+				default:
+					break;
+			}
+
+			Helpers.resizeCanvas({
+				camera: camera,
+				renderer: renderer,
+				effect: effect
+			});
+		}
 	}
 
 	/**
@@ -76,8 +139,6 @@ class Core {
 	 * calling the animateScene function.
 	 */
 	renderWebGLApp() {
-
-		// TODO: keep track of API paramters which might be useful
 
 		// stats call before rendering
 		stats.begin();

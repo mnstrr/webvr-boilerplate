@@ -44,14 +44,7 @@ class VRInit {
 			App.device = Device.DESKTOP;
 		}
 
-		// activate fullscreen button and store reference of dom element
-		if (typeof App.config.FULLSCREEN_OPTION == 'string') {
-			fullScreenBtn = Helpers.addClass(App.config.FULLSCREEN_OPTION, 'is-active');
-		}
-		// activate vrmode button and store reference of dom element
-		if (typeof App.config.VRMODE_OPTION == 'string') {
-			vrModeBtn = Helpers.addClass(App.config.VRMODE_OPTION, 'is-active');
-		}
+
 
 		this.webVRInitialized();
 	}
@@ -77,7 +70,6 @@ class VRInit {
 			camera: this.options.camera,
 			renderer: this.options.renderer
 		});
-
 	}
 
 	/**
@@ -104,8 +96,6 @@ class VRInit {
 				console.log("Created VRControls: ", controls);
 			}
 		});
-
-		//TODO: handle fullscreen button click
 	}
 
 	/**
@@ -113,11 +103,12 @@ class VRInit {
 	 *
 	 */
 	setupMobileVR() {
-		effect = new THREE.StereoEffect(this.options.renderer);
-		effect.setSize(window.innerWidth, window.innerHeight);
-
-		// Cardboards eye seperation is 2.5 inch. Divide by 2 for per-eye view.
-		effect.separation = 2.5 * 0.0254 / 2;
+		if (!App.config.NO_MOBILEVR) {
+			effect = new THREE.StereoEffect(this.options.renderer);
+			effect.setSize(window.innerWidth, window.innerHeight);
+			// Cardboards eye seperation is 2.5 inch. Divide by 2 for per-eye view.
+			effect.separation = 2.5 * 0.0254 / 2;
+		}
 
 		// create device orientation controls for use with cardboard
 		controls = new THREE.DeviceOrientationControls(this.options.camera);
@@ -141,6 +132,8 @@ class VRInit {
 		// create orbitcontrols
 		controls = new THREE.OrbitControls(this.options.camera, this.options.renderer.domElement);
 	}
+
+
 
 
 	/**
