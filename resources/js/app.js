@@ -13,6 +13,7 @@ export default (function () {
 		SHOW_STATS: false, // show performance stats (0: fps, 1: ms, 2: mb,  default: false)
 		ANTIALIAS: true, // use antialias for rendering (default: false)
 		FULLSCREEN_OPTION: '#vr-fullscreen', // provide queryselector to show fullscreen button. click is handled from internal js (default: undefined)
+		VRMODE_OPTION: '#vr-vrmode', // provide queryselector to show vrmode button. click is handled from internal js (default: undefined)
 		WARN_MESSAGE: '#vr-warning', // provide dom queryselector to show warnmessage for unsupported devices (default: undefined)
 		FAKE_VR_EFFECT: true, // fakes vr-effect as three stereo-effect (default: false)
 		SHOW_CROSSHAIR: true // shows a simple crosshair in front of the camera

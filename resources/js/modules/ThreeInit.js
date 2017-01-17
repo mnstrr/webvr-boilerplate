@@ -23,6 +23,8 @@ class ThreeInit {
 	initialize() {
 		//create new renderer used throughout the app
 		renderer = new THREE.WebGLRenderer({antialias: App.config.ANTIALIAS});
+		renderer.setPixelRatio(window.devicePixelRatio);
+		renderer.setSize(window.innerWidth, window.innerHeight);
 
 		// append the canvas either to the provided container, or document body
 		if (this.options.container) {
@@ -35,7 +37,7 @@ class ThreeInit {
 		scene = new THREE.Scene();
 
 		// create and add camera to the scene
-		camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.01, 4000);
+		camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 10);
 		scene.add(camera);
 
 		// default camera position. will be overwritten/ignored if there are valid VRDevices. Use this as desktop fallback

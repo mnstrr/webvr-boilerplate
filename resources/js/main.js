@@ -62,7 +62,8 @@ class Core {
 		window.addEventListener('resize', function () {
 			Helpers.resizeCanvas({
 				camera: camera,
-				renderer: renderer
+				renderer: renderer,
+				effect: effect
 			});
 		}, false);
 

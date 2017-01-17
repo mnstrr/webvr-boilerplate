@@ -3,8 +3,12 @@ let Helpers = {};
 Helpers.resizeCanvas = function (options = {}) {
 	options.camera.aspect = window.innerWidth / window.innerHeight;
 	options.camera.updateProjectionMatrix();
+	if(options.effect) {
+		options.effect.setSize(window.innerWidth, window.innerHeight)
+	}else {
+		options.renderer.setSize(window.innerWidth, window.innerHeight);
+	}
 
-	options.renderer.setSize(window.innerWidth, window.innerHeight);
 };
 
 Helpers.addClass = function (selector, classname) {

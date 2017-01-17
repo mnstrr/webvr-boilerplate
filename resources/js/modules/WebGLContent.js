@@ -1,8 +1,5 @@
 'use strict';
 
-let crosshair,
-	room;
-
 /**
  * This class is your starting point for WebGL development.
  * All ThreeJS initialisation and WebVR Stuff was handled for you.
@@ -27,12 +24,20 @@ class WebGLContent {
 	 */
 	createScene() {
 
-
-		room = new THREE.Mesh(
+		let room = new THREE.Mesh(
 			new THREE.BoxGeometry( 6, 6, 6, 8, 8, 8 ),
 			new THREE.MeshBasicMaterial( { color: 0x404040, wireframe: true } )
 		);
 		this.options.scene.add( room );
+
+		let cube = new THREE.Mesh(
+			new THREE.BoxGeometry( 1, 1,1),
+			new THREE.MeshBasicMaterial( { color: 0x00ff00} )
+		);
+		this.options.scene.add( cube );
+
+
+
 	}
 
 	/**
@@ -42,8 +47,7 @@ class WebGLContent {
 	 * @param time
 	 */
 	animateScene (time) {
-		//mesh.rotation.x += 0.01;
-		//mesh.rotation.y += 0.02;
+
 	}
 
 }
