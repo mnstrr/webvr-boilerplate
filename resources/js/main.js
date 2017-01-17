@@ -29,9 +29,6 @@ class Core {
 		console.log('App initialized with version ' + App.version);
 		App.Mode = Mode.NORMAL;
 
-		if (document['onwebkitfullscreenchange']) {
-			console.log("BLABLILI")
-		}
 		// show stats for performance monitoring
 		if (typeof App.config.SHOW_STATS != 'undefined') {
 			stats.showPanel(App.config.SHOW_STATS); // 0: fps, 1: ms, 2: mb, 3+: custom
@@ -73,10 +70,46 @@ class Core {
 			});
 		}, false);
 
+		//set eventlisteners for buttons
 		this.handleButtons();
 
 		// run animation loop
 		this.renderWebGLApp();
+	}
+
+	/**
+	 * Runs the render loop by using RAF: render function the render function either of the effect or the renderer and
+	 * calling the animateScene function.
+	 */
+	renderWebGLApp() {
+
+		// stats call before rendering
+		stats.begin();
+
+		// call the animation function of WebGlContent.js
+		webGlContent.animateScene();
+
+		// update the controls
+		controls.update();
+
+		// render the scene, either with VReffect or renderer
+		if (effect) {
+			effect.render(scene, camera);
+		}
+		else {
+			renderer.render(scene, camera);
+		}
+
+		// stats call after rendering
+		stats.end();
+
+		// check for vrDisplay and use its RAF if available
+		if (vrDisplay) {
+			vrDisplay.requestAnimationFrame(this.renderWebGLApp.bind(this));
+		}
+		else {
+			requestAnimationFrame(this.renderWebGLApp.bind(this));
+		}
 	}
 
 	/**
@@ -171,41 +204,6 @@ class Core {
 			if (App.Mode === Mode.NORMAL && App.device === Device.MOBILE) {
 				effect = undefined;
 			}
-		}
-	}
-
-	/**
-	 * Runs the render loop by using RAF: render function the render function either of the effect or the renderer and
-	 * calling the animateScene function.
-	 */
-	renderWebGLApp() {
-
-		// stats call before rendering
-		stats.begin();
-
-		// call the animation function of WebGlContent.js
-		webGlContent.animateScene();
-
-		// update the controls
-		controls.update();
-
-		// render the scene, either with VReffect or renderer
-		if (effect) {
-			effect.render(scene, camera);
-		}
-		else {
-			renderer.render(scene, camera);
-		}
-
-		// stats call after rendering
-		stats.end();
-
-		// check for vrDisplay and use its RAF if available
-		if (vrDisplay) {
-			vrDisplay.requestAnimationFrame(this.renderWebGLApp.bind(this));
-		}
-		else {
-			requestAnimationFrame(this.renderWebGLApp.bind(this));
 		}
 	}
 }
