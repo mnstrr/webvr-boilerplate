@@ -1,11 +1,13 @@
-import App from '../app';
-import Helpers from '../helpers/helpers';
-import Device from '../helpers/enums';
+import App from "../app";
+import Helpers from "../helpers/helpers";
+import Device from "../helpers/enums";
 'use strict';
 
 let vrDisplay,
 	effect,
-	controls;
+	controls,
+	fullScreenBtn,
+	vrModeBtn;
 
 /**
  * This class determines whether the client is able to show VR-content (VR-displays or mobile) and cares about the right
@@ -42,6 +44,15 @@ class VRInit {
 			App.device = Device.DESKTOP;
 		}
 
+		// activate fullscreen button and store reference of dom element
+		if (typeof App.config.FULLSCREEN_OPTION == 'string') {
+			fullScreenBtn = Helpers.addClass(App.config.FULLSCREEN_OPTION, 'is-active');
+		}
+		// activate vrmode button and store reference of dom element
+		if (typeof App.config.VRMODE_OPTION == 'string') {
+			vrModeBtn = Helpers.addClass(App.config.VRMODE_OPTION, 'is-active');
+		}
+
 		this.webVRInitialized();
 	}
 
@@ -66,6 +77,7 @@ class VRInit {
 			camera: this.options.camera,
 			renderer: this.options.renderer
 		});
+
 	}
 
 	/**

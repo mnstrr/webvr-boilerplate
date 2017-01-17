@@ -15,6 +15,7 @@ Helpers.addClass = function (selector, classname) {
 	let container = document.querySelector(selector);
 	if (container) {
 		container.classList.add(classname);
+		return container;
 	}
 };
 
