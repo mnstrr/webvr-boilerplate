@@ -1,6 +1,6 @@
 import App from "../app";
 import Helpers from "../helpers/helpers";
-import Device from "../helpers/enums";
+import {Device} from "../helpers/enums";
 'use strict';
 
 let vrDisplay,

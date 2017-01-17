@@ -1,6 +1,11 @@
-const Device = {
+export const Device = {
 	NATIVE: 'NATIVE',
 	MOBILE: 'MOBILE',
 	DESKTOP: 'DESKTOP'
 };
-export default Device;
+
+export const Mode = {
+	NORMAL: 'NORMAL',
+	FULLSCREEN: 'FULLSCREEN',
+	VRMODE: 'VRMODE'
+};

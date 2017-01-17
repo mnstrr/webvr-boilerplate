@@ -6,7 +6,7 @@ export default (function () {
 
 	// Version
 	App.version = "0.0.1";
-	App.device = undefined;
+
 
 	// Configuration
 	App.config = {

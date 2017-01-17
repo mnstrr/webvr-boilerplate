@@ -86,6 +86,12 @@ App.config = {
     // default: undefined
     WARN_MESSAGE: '#warn-message',
     
+    
+    // To disable stareo rendering by default on mobile devices set this to true. To ensure the user can enter VR-Mode please provide an VRMODE_OPTION
+    //default: false
+    NO_MOBILEVR: true,
+    
+    
     // To 'fake' the VR-Effect as Three Stereo-Effect you can enable this option.
     // default: false
     FAKE_VR_EFFECT: true, 
@@ -114,6 +120,7 @@ Some variables can globally be accessed by using the App module:
 - ``App.config`` {object} holds the App [configuration](#configuration)
 - ``App.isMobile`` {boolean} used to identify if a mobile device is used
 - ``App.device`` {string} holds the current devicetype
+- ``App.mode`` {string} holds the current mode of the app (normal, fullscreen, vrmode)
 
 ### Devmode
 
