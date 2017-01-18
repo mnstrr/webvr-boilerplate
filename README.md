@@ -64,7 +64,7 @@ App.config = {
     // 0: Shows Frames rendered in the last second. The higher the number the better.
     // 1: Shows Milliseconds needed to render a frame. The lower the number the better.
     // 2: Shows MBytes of allocated memory. (Run Chrome with --enable-precise-memory-info)
-    // default: false
+    // default: undefined
     SHOW_STATS: 0, 
 
     // To get smoother graphics use antialising
