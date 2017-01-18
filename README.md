@@ -86,11 +86,10 @@ App.config = {
     // default: undefined
     WARN_MESSAGE: '#warn-message',
     
-    
-    // To disable stareo rendering by default on mobile devices set this to true. To ensure the user can enter VR-Mode please provide an VRMODE_OPTION
+    // To disable stareo rendering by default on mobile devices set this to true. 
+    // To ensure the user can enter VR-Mode please provide an VRMODE_OPTION
     //default: false
     NO_MOBILEVR: true,
-    
     
     // To 'fake' the VR-Effect as Three Stereo-Effect you can enable this option.
     // default: false
