@@ -16,13 +16,11 @@ export default (function () {
 		FULLSCREEN_OPTION: '#vr-fullscreen', // provide queryselector to show fullscreen button. click is handled from internal js (default: undefined)
 		VRMODE_OPTION: '#vr-vrmode', // provide queryselector to show vrmode button. click is handled from internal js (default: undefined)
 		WARN_MESSAGE: '#vr-warning', // provide dom queryselector to show warnmessage for unsupported devices (default: undefined)
-		NO_MOBILEVR: true, // disables stereoeffect on mobile devices on startup. for full user experience, provide vrmode button
-		FAKE_VR_EFFECT: false, // fakes vr-effect as three stereo-effect on desktop (default: false)
+		NO_MOBILEVR: false, // disables stereoeffect on mobile devices on startup. for full user experience, provide vrmode button
+		FAKE_VR_EFFECT: true, // fakes vr-effect as three stereo-effect on desktop (default: false)
 		SHOW_CROSSHAIR: true // shows a simple crosshair in front of the camera
 
 	};
-
-
 
 
 	/**

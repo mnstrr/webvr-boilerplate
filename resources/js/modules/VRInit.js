@@ -5,15 +5,13 @@ import {Device} from "../helpers/enums";
 
 let vrDisplay,
 	effect,
-	controls,
-	fullScreenBtn,
-	vrModeBtn;
+	controls;
 
 /**
  * This class determines whether the client is able to show VR-content (VR-displays or mobile) and cares about the right
  * effect and controls initialization.
  *
- * Constructor expects an options object with the renderer, camera and a dom object for fullscreen button (optional)
+ * Constructor expects an options object with the renderer, camera
  *
  */
 class VRInit {
@@ -22,6 +20,8 @@ class VRInit {
 		this.options = options;
 		this.initialize();
 	}
+
+	//TODO: add requestPresent(canvas)!!!
 
 	/**
 	 * Check for type of device and call according init method
@@ -32,19 +32,18 @@ class VRInit {
 			navigator.getVRDisplays().then(function (displays) {
 				if (displays.length > 0) {
 					vrDisplay = displays[0];
+					App.device = Device.NATIVE;
 				} else {
 					console.warn("WebVR supported, but no VRDisplays found.");
+					App.device = Device.DESKTOP;
 				}
 			});
-			App.device = Device.NATIVE;
 		} else if (App.isMobile) {
 			App.device = Device.MOBILE;
 		} else {
 			console.warn("Your device does not support WebVR. See <a href='http://webvr.info'>webvr.info</a> for assistance.");
 			App.device = Device.DESKTOP;
 		}
-
-
 
 		this.webVRInitialized();
 	}
@@ -132,8 +131,6 @@ class VRInit {
 		// create orbitcontrols
 		controls = new THREE.OrbitControls(this.options.camera, this.options.renderer.domElement);
 	}
-
-
 
 
 	/**

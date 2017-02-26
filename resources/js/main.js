@@ -25,6 +25,8 @@ const stats = new Stats();
  */
 class Core {
 
+	//TODO: include gamepad api
+
 	initialize(context) {
 		console.log('App initialized with version ' + App.version);
 		App.Mode = Mode.NORMAL;
@@ -37,7 +39,7 @@ class Core {
 
 		// init threeJS
 		let threeInit = new ThreeInit({
-			container: context.getElementById('canvasContainer')
+			container: context.getElementById('canvasContainer') //TODO: move this to config
 		});
 
 		renderer = threeInit.renderer;
@@ -58,7 +60,8 @@ class Core {
 		// init custom webgl content
 		webGlContent = new WebGLContent({
 			scene: scene,
-			camera: camera
+			camera: camera,
+			vrDisplay: vrDisplay
 		});
 
 		// listen to resize event and use reziseCanvas helper
@@ -74,23 +77,33 @@ class Core {
 		this.handleButtons();
 
 		// run animation loop
-		this.renderWebGLApp();
+		this.renderLoop();
 	}
 
 	/**
-	 * Runs the render loop by using RAF: render function the render function either of the effect or the renderer and
-	 * calling the animateScene function.
+	 * Runs the render loop by using RAF: updates controls, calls animateScene from WebGLContent class and renders the scene
+	 * @param time
 	 */
-	renderWebGLApp() {
+	renderLoop(time) {
+
+		// check for vrDisplay and use its RAF if available
+		if (vrDisplay) {
+			vrDisplay.requestAnimationFrame(this.renderLoop.bind(this));
+		}
+		else {
+			window.requestAnimationFrame(this.renderLoop.bind(this));
+		}
 
 		// stats call before rendering
 		stats.begin();
 
 		// call the animation function of WebGlContent.js
-		webGlContent.animateScene();
+		webGlContent.animateScene(time);
 
 		// update the controls
-		controls.update();
+		if (controls) {
+			controls.update();
+		}
 
 		// render the scene, either with VReffect or renderer
 		if (effect) {
@@ -103,13 +116,6 @@ class Core {
 		// stats call after rendering
 		stats.end();
 
-		// check for vrDisplay and use its RAF if available
-		if (vrDisplay) {
-			vrDisplay.requestAnimationFrame(this.renderWebGLApp.bind(this));
-		}
-		else {
-			requestAnimationFrame(this.renderWebGLApp.bind(this));
-		}
 	}
 
 	/**
@@ -152,9 +158,11 @@ class Core {
 			switch (App.device) {
 				case Device.NATIVE:
 					if (App.Mode === Mode.NORMAL) {
+						//this handles requestPresent() of the HMD
 						effect.setFullScreen(true);
 						App.Mode = Mode.VRMODE;
 					} else {
+						//this handles exitPresent() of HMD
 						effect.setFullScreen(false);
 						App.Mode = Mode.NORMAL;
 					}

@@ -27,8 +27,8 @@ class WebGLContent {
 	 */
 	createScene() {
 
-		//THIS IS A DEMO SCENE. REPLACE THIS WITH YOUR CONTENT!
-		//heavily ispired from https://threejs.org/examples/#webvr_cubes
+		//THIS IS A DEMO SCENE. REPLACE THIS WITH YOUR OWN CONTENT!
+		//heavily inspired from https://threejs.org/examples/#webvr_cubes
 		clock = new THREE.Clock();
 
 
@@ -65,10 +65,12 @@ class WebGLContent {
 	}
 
 	/**
-	 * Called ech frame using requestAnimationFrame or vrDisplay.requestAnimationFrame (if available).
+	 * Called each frame using window.requestAnimationFrame or vrDisplay.requestAnimationFrame (if available).
+	 * A Timestamp is provided in "time".
 	 * Use this to animate your scene.
+	 * @param time
 	 */
-	animateScene() {
+	animateScene(time) {
 
 		let delta = clock.getDelta() * 60;
 		for (var i = 0; i < room.children.length; i++) {
